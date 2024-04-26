@@ -1,8 +1,19 @@
 #! python3
-# jpdictionary.py - web scrabe goojp of definition and convert the data into csv file
+# jpdictionary.py - web scrabe goojp of definition and convert the data into a single csv file that can be easily imported to Anki
 import requests, bs4, sys, os, csv
+from dotenv import load_dotenv
+from elevenlabs import Voice, VoiceSettings, play, save
+from elevenlabs.client import ElevenLabs
+import os
 
 os.makedirs('anki_csv', exist_ok=True)
+
+load_dotenv()
+
+client = ElevenLabs(
+  api_key=os.getenv("API_KEY"),
+)
+
 
 if len(sys.argv) > 1:
     try:
@@ -18,12 +29,22 @@ if len(sys.argv) > 1:
             for element in jp_text:
                 full_sentence += element.text
 
-            with open(os.path.join('anki_csv', os.path.basename(f'{word}.csv')), 'w', newline='') as textfile:
+            with open(os.path.join('anki_csv', os.path.basename('words.csv')), 'a', newline='') as textfile: #Adds in at the last row
                 csvwriter = csv.writer(textfile)
                 csvwriter.writerow([f'{word}', f'{full_sentence}'])
+            print(full_sentence)
+            audio = client.generate(
+                text = full_sentence,
+                model="eleven_multilingual_v2",
+                voice=Voice(
+                    voice_id="j210dv0vWm7fCknyQpbA",
+                    settings=VoiceSettings(stability=0.50, similarity_boost=0.65, style=0, use_speaker_boost=True),
+                )
+            )
+
+            play(audio) #Generate audio for defintion that can be added. Word -> Definition -> Audio
 
 
-
-        print(full_sentence)
+        print('Done')
     except Exception as err:
         print('エラー! 確認して下さい: %s' % (err))
