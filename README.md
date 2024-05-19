@@ -16,3 +16,7 @@ Word -> Definition -> Audio
 
 Thanks to Anki CSV Importer that makes the complicated process much easier
 
+1) git clone https://github.com/gsingh93/anki-csv-importer
+2) Modify the program by removing main()
+3) Optional - If you're Anki language system is Japanese, change lines 98 and 177 n['fields']['{whatever front name is called}']
+4) Must match fieldname and change them if necessary
