@@ -2,8 +2,6 @@
 
 Scrape goo辞書 Japanese dictionary and convert it into a csv file that can be easily imported into Anki.
 
-Tailored to my Ubuntu Linux. 
-
 Easily makes your Anki card in CLI.
 
 python3 jpdictionary.py --insert one or more words--
