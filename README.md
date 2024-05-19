@@ -1,8 +1,8 @@
 # Japanese Anki Cards Automation with AI
 
-Scrape goo辞書 Japanese dictionary data and convert it into a csv file that can be easily imported into Anki.
+Scrape goo辞書 Japanese dictionary and convert it into a csv file that can be easily imported into Anki.
 
-Tailored to Ubuntu Linux. 
+Tailored to my Ubuntu Linux. 
 
 Easily makes your Anki card in CLI.
 
@@ -15,6 +15,4 @@ Automatically creates fieldname '表面', '裏面', 'Audio' as header
 Word -> Definition -> Audio
 
 Thanks to Anki CSV Importer that makes the complicated process much easier
-
-**More update is coming soon to incoporate to get the CSV imported**
 
