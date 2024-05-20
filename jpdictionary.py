@@ -1,5 +1,5 @@
 #! python3
-# jpdictionary.py - web scrap goojp dictionary and convert the data into a single csv file that can be easily imported to Anki
+# jpdictionary.py - web scrape goojp dictionary and convert the data into a single csv file that can be easily imported to Anki
 import requests
 import bs4
 import sys
@@ -22,16 +22,14 @@ client = ElevenLabs(
 if len(sys.argv) > 1:
     try:
         for word in sys.argv[1:]:
+
             url = f'https://dictionary.goo.ne.jp/word/{word}/'
             res = requests.get(url)
             res.raise_for_status()
             wordSoup = bs4.BeautifulSoup(res.text, 'html.parser')
             jp_text = wordSoup.select('.text')
 
-            full_sentence = ''
-
-            for element in jp_text:
-                full_sentence += element.text
+            full_sentence = ''.join(str(s) for s in jp_text)
 
             audio = client.generate(
                 text = full_sentence,
@@ -44,18 +42,18 @@ if len(sys.argv) > 1:
 
             save(audio, f"/home/vboxuser/.local/share/Anki2/ユーザー 1/collection.media/{word}.wav") #May be different from yours, but this saves audio to Anki's media collection folder. Must do this or else not able to get media files
 
+            location = os.path.join('anki_csv', os.path.basename('words.csv'))
 
-            with open(os.path.join('anki_csv', os.path.basename('words.csv')), 'a', newline='') as textfile: #Adds in at the last row of CSV
-                file_is_empty = os.stat('./anki_csv/words.csv').st_size == 0
+            with open(location, 'a', newline='') as textfile: #Adds in at the last row of CSV
+                file_is_empty = os.stat(location).st_size == 0
                 csvwriter = csv.DictWriter(textfile, delimiter=',', fieldnames=['表面', '裏面', 'Audio']) # you must include fieldnames and must be correct for anki-csv-importer program to work
                 if file_is_empty:
-                    csvwriter.writeheader() # writes fieldname if empty however limitation
+                    csvwriter.writeheader() # writes fieldname if empty however limitation is that it's only work if
                 csvwriter.writerow({'表面': f'{word}', '裏面': f'{full_sentence}', 'Audio': f'[sound:{word}.wav]'})
 
-            print(full_sentence)
 
             send_to_anki_connect( #import csv file and sync anki. Must install ankiconnect addon. Please read anki-csv-importer documentation
-                './anki_csv/words.csv', #path to csv file
+                location, #path to csv file
                 'デフォルト', # deckname
                 '基本') # note type
             print('[+] Syncing')
