@@ -12,9 +12,17 @@ Automatically creates fieldname '表面', '裏面', 'Audio' as header
 
 Word -> Definition -> Audio
 
+Instructions
+1) git clone https://github.com/yfsteven/Japanese-Anki-Cards-Automation-with-AI.git
+2) Install AnkiConnect Addon on Anki
+3) Insert Eleven Labs API Key
+4) Replace Anki media collection directory to your own at line 43
+5) Modify fieldnames that match the same to your Anki deck at line 49 and 52
+6) Line 55, change deckname and note type to your own
+   
+
 Thanks to Anki CSV Importer that makes the complicated process much easier
 
 1) git clone https://github.com/gsingh93/anki-csv-importer
 2) Modify the program by removing main()
-3) Optional - If you're Anki language system is Japanese, change lines 98 and 177 n['fields']['{whatever front name is called}']
-4) Must match fieldname and change them if necessary
+3) Optional - If your Anki language system is Japanese, change lines 98 and 177 n['fields']['{whatever front name is called}']
