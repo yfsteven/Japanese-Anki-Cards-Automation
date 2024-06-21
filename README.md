@@ -21,7 +21,7 @@ Instructions
 6) Line 55, change deckname and note type to your own
    
 
-Thanks to Anki CSV Importer that makes the complicated process much easier
+Thanks to Anki CSV Importer that makes the complicated process much easier (Edit: Update - you should use AnkiConnect [it's what the program is essentially doing](https://foosoft.net/projects/anki-connect/index.html#deck-actions)
 
 1) git clone https://github.com/gsingh93/anki-csv-importer
 2) Modify the program by removing main()
